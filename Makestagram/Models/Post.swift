@@ -8,9 +8,11 @@
 
 import Foundation
 import Parse
+import Bond
+
 //1
 class Post: PFObject, PFSubclassing{
-    var image: UIImage?
+    var image: Observable<UIImage?> = Observable(nil)
     var photoUploadTask: UIBackgroundTaskIdentifier?
     
     //2
@@ -38,7 +40,8 @@ class Post: PFObject, PFSubclassing{
     }// end of parseClassName()
     
     func uploadPost(){
-        if let image = image{
+        
+        if let image = image.value{
             guard let imageData = UIImageJPEGRepresentation(image, 0.8) else {return}
             guard let imageFile = PFFile(name: "image.jpg", data:imageData) else{return}
             
@@ -52,8 +55,24 @@ class Post: PFObject, PFSubclassing{
             saveInBackgroundWithBlock() {(success: Bool, error: NSError?) in
                 UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask!)
             }
-            
         }
     } // end of uploadPost()
+
+    
+    func downloadImage(){
+        // get the image if the image is not downloaded yet
+        if (image.value == nil){
+            imageFile?.getDataInBackgroundWithBlock{(data: NSData?, error: NSError?) -> Void in
+                if let data = data{
+                    let image = UIImage(data: data, scale:1.0)!
+                    self.image.value = image
+                }
+            }
+        }
+    } // end of downloadImage()
+    
+    
+    
+    
     
 }// end of Post Class

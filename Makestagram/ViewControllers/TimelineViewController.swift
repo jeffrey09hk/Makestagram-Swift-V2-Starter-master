@@ -11,7 +11,10 @@ import Parse
 
 class TimelineViewController: UIViewController {
     var photoTakingHelper: PhotoTakingHelper?
+    var posts: [Post] = []
 
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,12 +27,22 @@ class TimelineViewController: UIViewController {
         photoTakingHelper = PhotoTakingHelper(viewController: self.tabBarController!){
             (image: UIImage?) in
                 let post = Post()
-                post.image = image
+            
+                post.image.value = image
             post.uploadPost()
         }
     }
     
-
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        ParseHelper.timelineRequestForCurrentUser{(result: [PFObject]?, error: NSError?) -> Void in
+            self.posts = result as? [Post] ?? []
+            
+            self.tableView.reloadData()
+        }
+        
+    } // end of viewDidAppear()
     
 } // end of class
 
@@ -46,5 +59,27 @@ extension TimelineViewController: UITabBarControllerDelegate {
             return true
         }
     }// end of tabBarController
+}
+
+
+extension TimelineViewController: UITableViewDataSource {
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return posts.count
+    }
     
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+        let cell = tableView.dequeueReusableCellWithIdentifier("PostCell") as! PostTableViewCell
+        
+        let post = posts[indexPath.row]
+        
+        post.downloadImage()
+        
+        cell.post = post
+        
+        return cell
+    }
 }// end of extension
+
+
+

@@ -40,6 +40,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("No logged in user :(")
         }
         
+        // changing the ACL (Access Control Lists), prevent other users deleting the app / accessing the app data
+        let acl = PFACL()
+        acl.publicReadAccess = true
+        PFACL.setDefaultACL(acl, withAccessForCurrentUser: true)
         
 
         return true
