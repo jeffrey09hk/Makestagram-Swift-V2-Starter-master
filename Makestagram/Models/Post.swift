@@ -14,6 +14,7 @@ import Bond
 class Post: PFObject, PFSubclassing{
     var image: Observable<UIImage?> = Observable(nil)
     var photoUploadTask: UIBackgroundTaskIdentifier?
+    var likes: Observable<[PFUser]?> = Observable(nil)
     
     //2
     @NSManaged var imageFile: PFFile?
@@ -71,8 +72,42 @@ class Post: PFObject, PFSubclassing{
         }
     } // end of downloadImage()
     
+    func fetchLikes() {
+        if (likes.value != nil){
+            return
+        }
+        
+        ParseHelper.likesForPost(self, completionBlock: {(likes: [PFObject]?, error: NSError?) -> Void in
+            let validLikes = likes?.filter{like in like[ParseHelper.ParseLikeFromUser] != nil }
+            
+            self.likes.value = validLikes?.map{like in
+                let fromUser = like[ParseHelper.ParseLikeFromUser] as! PFUser
+                
+                return fromUser
+            }
+        })
+    }// end of fetchLikes()
     
+    func doesUserLikePost(user: PFUser) -> Bool{
+        if let likes = likes.value {
+            return likes.contains(user)
+        } else {
+            return false
+        }
+    }
     
+    func toggleLikePost(user: PFUser){
+        if (doesUserLikePost(user)){
+            // if post is liked, unlike
+            likes.value = likes.value?.filter{$0 != user}
+            ParseHelper.unlikePost(user, post: self)
+        }
+        else{
+            //if post is not liked, like
+            likes.value?.append(user)
+            ParseHelper.likePost(user, post: self)
+        }
+    }
     
     
 }// end of Post Class

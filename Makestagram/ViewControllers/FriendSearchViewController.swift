@@ -10,6 +10,17 @@ import UIKit
 
 class FriendSearchViewController: UIViewController {
 
+    @IBOutlet weak var usernameLabel: UILabel!
+    
+    @IBOutlet weak var followButton: UIButton!
+    
+    @IBAction func followButtonTapped(sender: AnyObject) {
+    }
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
