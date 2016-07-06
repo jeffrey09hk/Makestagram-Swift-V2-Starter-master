@@ -7,12 +7,31 @@
 //
 
 import UIKit
-import Parse
+import ParseUI
+import ParseFacebookUtilsV4
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var parseLoginHelper: ParseLoginHelper!
+    
+    override init(){
+        super.init()
+        
+        parseLoginHelper = ParseLoginHelper {[unowned self] user, error in
+            //instantiate the ParseLoginHelper with a callback
+            if let error = error{
+                ErrorHandling.defaultErrorHandler(error)
+            } else if let _ = user{
+                //if login was successful, display the TabBarController
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarViewController")
+                self.window?.rootViewController!.presentViewController(tabBarController, animated: true, completion: nil)
+            }
+        }
+    }
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -24,30 +43,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         Parse.initializeWithConfiguration(configuration)
         
-        do
-        {
-            try PFUser.logInWithUsername("test", password: "test")
-        }
-            catch
-        {
-                print("unable to login")
-        }
-        
-        
-        if let currentUser = PFUser.currentUser() {
-            print("\(currentUser.username!) logged in successfully")
-        } else {
-            print("No logged in user :(")
-        }
         
         // changing the ACL (Access Control Lists), prevent other users deleting the app / accessing the app data
         let acl = PFACL()
         acl.publicReadAccess = true
         PFACL.setDefaultACL(acl, withAccessForCurrentUser: true)
         
-
-        return true
-    }
+        //initialize fb
+        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
+        
+        //chk if we have logged in
+        let user = PFUser.currentUser()
+        let startViewController: UIViewController
+        
+        if (user != nil){
+            //if we have a user, set the TabBarController to be the initial view
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            startViewController = storyboard.instantiateViewControllerWithIdentifier("TabBarViewController") as! UITabBarController
+        }
+        else {
+            //no user logged i, set the LoginViewController as initial
+            let loginViewController = PFLogInViewController()
+            loginViewController.fields = [.UsernameAndPassword, .LogInButton, .SignUpButton, .PasswordForgotten, .Facebook]
+            loginViewController.delegate = parseLoginHelper
+            loginViewController.signUpController?.delegate = parseLoginHelper
+            
+            startViewController = loginViewController
+        }
+        
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.rootViewController = startViewController;
+        self.window?.makeKeyAndVisible()
+        
+        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+    } // end of func
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -65,10 +94,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        FBSDKAppEvents.activateApp()
     }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) ->Bool{
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
 

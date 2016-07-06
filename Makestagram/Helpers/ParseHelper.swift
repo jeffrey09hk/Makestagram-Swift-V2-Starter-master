@@ -83,7 +83,7 @@ class ParseHelper{
     }// end of likeForPost
     
     
-    //MARK: Following
+    // MARK: Following
     
     /**
      Fetches all users that the provided user is following.
@@ -91,8 +91,8 @@ class ParseHelper{
      :param: user The user whose followees you want to retrieve
      :param: completionBlock The completion block that is called when the query completes
      */
-    static func getFollowingUsersForUser(user: PFUser, completionBlock: PFQueryArrayResultBlock){
-        let query = PFQuery(className:  ParseFollowClass)
+    static func getFollowingUsersForUser(user: PFUser, completionBlock: PFQueryArrayResultBlock) {
+        let query = PFQuery(className: ParseFollowClass)
         
         query.whereKey(ParseFollowFromUser, equalTo:user)
         query.findObjectsInBackgroundWithBlock(completionBlock)
@@ -104,10 +104,10 @@ class ParseHelper{
      :param: user    The user that is following
      :param: toUser  The user that is being followed
      */
-    static func addFollowRelationshipFromUser(user: PFUser, toUser: PFUser){
+    static func addFollowRelationshipFromUser(user: PFUser, toUser: PFUser) {
         let followObject = PFObject(className: ParseFollowClass)
         followObject.setObject(user, forKey: ParseFollowFromUser)
-        followObject.setObject(toUser, forKey: ParseFollowFromUser)
+        followObject.setObject(toUser, forKey: ParseFollowToUser)
         
         followObject.saveInBackgroundWithBlock(nil)
     }
@@ -118,15 +118,16 @@ class ParseHelper{
      :param: user    The user that is following
      :param: toUser  The user that is being followed
      */
-    static func removeFollowRelationshipFromUser(user: PFUser, toUser: PFUser){
+    static func removeFollowRelationshipFromUser(user: PFUser, toUser: PFUser) {
         let query = PFQuery(className: ParseFollowClass)
-        query.whereKey(ParseFollowFromUser, equalTo: user)
+        query.whereKey(ParseFollowFromUser, equalTo:user)
         query.whereKey(ParseFollowToUser, equalTo: toUser)
         
-        query.findObjectsInBackgroundWithBlock{(results: [PFObject]?, error: NSError?) -> Void in
+        query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, error: NSError?) -> Void in
+            
             let results = results ?? []
             
-            for follow in results{
+            for follow in results {
                 follow.deleteInBackgroundWithBlock(nil)
             }
         }
@@ -142,14 +143,16 @@ class ParseHelper{
      
      :returns: The generated PFQuery
      */
-    static func allUsers(completionBlock: PFQueryArrayResultBlock) -> PFQuery{
+    static func allUsers(completionBlock: PFQueryArrayResultBlock) -> PFQuery {
         let query = PFUser.query()!
-        //exclude the current user
-        query.whereKey(ParseHelper.ParseUserUsername, notEqualTo: PFUser.currentUser()!.username!)
+        // exclude the current user
+        query.whereKey(ParseHelper.ParseUserUsername,
+                       notEqualTo: PFUser.currentUser()!.username!)
         query.orderByAscending(ParseHelper.ParseUserUsername)
         query.limit = 20
         
         query.findObjectsInBackgroundWithBlock(completionBlock)
+        
         return query
     }
     
@@ -161,22 +164,25 @@ class ParseHelper{
      
      :returns: The generated PFQuery
      */
-    static func searchUsers(searchText: String, completionBlock: PFQueryArrayResultBlock) -> PFQuery{
+    static func searchUsers(searchText: String, completionBlock: PFQueryArrayResultBlock) -> PFQuery {
         /*
          NOTE: We are using a Regex to allow for a case insensitive compare of usernames.
          Regex can be slow on large datasets. For large amount of data it's better to store
          lowercased username in a separate column and perform a regular string compare.
          */
-        let query = PFUser.query()!.whereKey(ParseHelper.ParseUserUsername, matchesRegex: searchText, modifiers: "i")
+        let query = PFUser.query()!.whereKey(ParseHelper.ParseUserUsername,
+                                             matchesRegex: searchText, modifiers: "i")
         
-        query.whereKey(ParseHelper.ParseUserUsername, notEqualTo: PFUser.currentUser()!.username!)
+        query.whereKey(ParseHelper.ParseUserUsername,
+                       notEqualTo: PFUser.currentUser()!.username!)
+        
         query.orderByAscending(ParseHelper.ParseUserUsername)
         query.limit = 20
         
         query.findObjectsInBackgroundWithBlock(completionBlock)
+        
         return query
     }
-    
     
     
     

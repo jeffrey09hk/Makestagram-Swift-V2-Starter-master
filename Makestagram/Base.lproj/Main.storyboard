@@ -126,7 +126,7 @@
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="0Tc-Sh-pWM" id="fvS-E2-jlJ"/>
-                                    <outlet property="delegate" destination="0Tc-Sh-pWM" id="6aQ-9P-rQO"/>
+                                    <outlet property="delegate" destination="0Tc-Sh-pWM" id="D0E-Zj-Maj"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -152,7 +152,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="7az-6x-hKc">
             <objects>
-                <tabBarController id="zbv-LV-eIe" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="zbv-LV-eIe" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Nea-6V-pNj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -180,85 +180,83 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="gC4-Cy-AAQ">
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Y2S-Bk-FiN">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="KWx-13-olh"/>
+                                    <constraint firstAttribute="height" constant="44" id="3rH-v3-XjG"/>
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="nwF-rR-ibC" id="MgT-lo-4OG"/>
+                                    <outlet property="delegate" destination="nwF-rR-ibC" id="LJe-zm-4QM"/>
                                 </connections>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7cU-2x-WyV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uYE-U4-gpe">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" id="z5o-71-CEr" customClass="FriendSearchViewCell" customModule="Makestagram" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="50" id="ATm-OC-dSi" customClass="FriendSearchTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z5o-71-CEr" id="NgA-Ar-OuL">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ATm-OC-dSi" id="9vG-Jn-QYQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4x-Ds-mUo">
-                                                    <rect key="frame" x="20" y="11" width="472" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEk-BV-WbV">
+                                                    <rect key="frame" x="20" y="14" width="472" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="AlQ-gP-a0q"/>
+                                                        <constraint firstAttribute="height" constant="21" id="EhY-HK-U9b"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ba-To-Q71">
-                                                    <rect key="frame" x="540" y="-1" width="44" height="45"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XyE-Va-Ury">
+                                                    <rect key="frame" x="540" y="3" width="44" height="44"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="44" id="Dn7-Zt-qgw"/>
-                                                        <constraint firstAttribute="height" constant="44" id="zKB-Sy-c6H"/>
+                                                        <constraint firstAttribute="width" constant="44" id="0Ck-sZ-m2z"/>
+                                                        <constraint firstAttribute="height" constant="44" id="zxl-2J-HKX"/>
                                                     </constraints>
                                                     <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                                     <state key="normal" image="add"/>
                                                     <state key="selected" image="check"/>
                                                     <connections>
-                                                        <action selector="followButtonTapped:" destination="nwF-rR-ibC" eventType="touchUpInside" id="J7E-5L-lNC"/>
+                                                        <action selector="followButtonTapped:" destination="ATm-OC-dSi" eventType="touchUpInside" id="E12-gt-9ud"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="L4x-Ds-mUo" secondAttribute="trailing" constant="100" id="Kr0-H5-FNx"/>
-                                                <constraint firstItem="L4x-Ds-mUo" firstAttribute="centerY" secondItem="NgA-Ar-OuL" secondAttribute="centerY" id="cbo-DV-D1O"/>
-                                                <constraint firstItem="L4x-Ds-mUo" firstAttribute="leading" secondItem="NgA-Ar-OuL" secondAttribute="leadingMargin" constant="12" id="dcm-dO-C26"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="4Ba-To-Q71" secondAttribute="trailing" constant="8" id="wvu-AP-Yg0"/>
-                                                <constraint firstItem="4Ba-To-Q71" firstAttribute="centerY" secondItem="NgA-Ar-OuL" secondAttribute="centerY" id="yCR-B2-9EE"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="XyE-Va-Ury" secondAttribute="trailing" constant="8" id="4ab-CG-iWT"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="zEk-BV-WbV" secondAttribute="trailing" constant="100" id="8D9-Jj-0FP"/>
+                                                <constraint firstItem="zEk-BV-WbV" firstAttribute="centerY" secondItem="9vG-Jn-QYQ" secondAttribute="centerY" id="Mc6-g4-xBz"/>
+                                                <constraint firstItem="zEk-BV-WbV" firstAttribute="leading" secondItem="9vG-Jn-QYQ" secondAttribute="leadingMargin" constant="12" id="PWW-Yt-vk0"/>
+                                                <constraint firstItem="XyE-Va-Ury" firstAttribute="centerY" secondItem="9vG-Jn-QYQ" secondAttribute="centerY" id="qWD-Dc-aPd"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="followButton" destination="XyE-Va-Ury" id="OZJ-nC-TjF"/>
+                                            <outlet property="usernameLabel" destination="zEk-BV-WbV" id="BD3-hL-Y9c"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="nwF-rR-ibC" id="Jwa-AS-O4O"/>
+                                    <outlet property="dataSource" destination="nwF-rR-ibC" id="TrI-uM-5HN"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7cU-2x-WyV" firstAttribute="leading" secondItem="QPj-ZF-RSi" secondAttribute="leading" id="6Jf-Y6-7wu"/>
-                            <constraint firstItem="gC4-Cy-AAQ" firstAttribute="leading" secondItem="QPj-ZF-RSi" secondAttribute="leading" id="KcQ-zg-kpR"/>
-                            <constraint firstAttribute="trailing" secondItem="7cU-2x-WyV" secondAttribute="trailing" id="LJj-oW-TBa"/>
-                            <constraint firstItem="I5t-5e-lg2" firstAttribute="top" secondItem="7cU-2x-WyV" secondAttribute="bottom" id="Msd-6N-Wg6"/>
-                            <constraint firstAttribute="trailing" secondItem="gC4-Cy-AAQ" secondAttribute="trailing" id="NgO-er-faK"/>
-                            <constraint firstItem="7cU-2x-WyV" firstAttribute="top" secondItem="gC4-Cy-AAQ" secondAttribute="bottom" id="YXw-VY-2LI"/>
-                            <constraint firstItem="gC4-Cy-AAQ" firstAttribute="top" secondItem="f4e-nz-gN4" secondAttribute="bottom" id="bvX-R5-bla"/>
+                            <constraint firstItem="Y2S-Bk-FiN" firstAttribute="top" secondItem="f4e-nz-gN4" secondAttribute="bottom" id="3jz-IX-PxY"/>
+                            <constraint firstItem="I5t-5e-lg2" firstAttribute="top" secondItem="uYE-U4-gpe" secondAttribute="bottom" id="Ay8-G5-14T"/>
+                            <constraint firstAttribute="trailing" secondItem="uYE-U4-gpe" secondAttribute="trailing" id="K3g-ps-6wo"/>
+                            <constraint firstAttribute="trailing" secondItem="Y2S-Bk-FiN" secondAttribute="trailing" id="UyR-px-Gle"/>
+                            <constraint firstItem="uYE-U4-gpe" firstAttribute="leading" secondItem="QPj-ZF-RSi" secondAttribute="leading" id="Xlh-fy-tAp"/>
+                            <constraint firstItem="uYE-U4-gpe" firstAttribute="top" secondItem="Y2S-Bk-FiN" secondAttribute="bottom" id="crg-Hg-Qf3"/>
+                            <constraint firstItem="Y2S-Bk-FiN" firstAttribute="leading" secondItem="QPj-ZF-RSi" secondAttribute="leading" id="j9c-jg-nB3"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="people" id="mDP-er-G0E">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
                     </tabBarItem>
-                    <connections>
-                        <outlet property="followButton" destination="4Ba-To-Q71" id="R1C-wg-iHm"/>
-                        <outlet property="searchBar" destination="gC4-Cy-AAQ" id="rPm-kY-JOm"/>
-                        <outlet property="tableView" destination="7cU-2x-WyV" id="hyF-5C-9l5"/>
-                        <outlet property="usernameLabel" destination="L4x-Ds-mUo" id="fuT-I2-g9m"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8ma-r0-jnM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
