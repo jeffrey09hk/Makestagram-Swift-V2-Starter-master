@@ -7,6 +7,7 @@ PODS:
   - Bolts/Tasks (1.7.0)
   - Bond (4.0.0)
   - ConvenienceKit (0.4.0)
+  - DateTools (1.7.0)
   - FBSDKCoreKit (4.13.1):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.13.1):
@@ -26,6 +27,7 @@ PODS:
 DEPENDENCIES:
   - Bond (= 4.0.0)
   - ConvenienceKit
+  - DateTools
   - Parse
   - ParseFacebookUtilsV4
   - ParseUI
@@ -34,12 +36,13 @@ SPEC CHECKSUMS:
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   Bond: b729cdb22552def86efd4adfd8b8d93061eb4649
   ConvenienceKit: ba1ad8797897dc0d011676e961a2f3e9b270c841
+  DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   FBSDKCoreKit: 2807fe0da2ddb49a1469da6d6ff597f99912980f
   FBSDKLoginKit: 6d350cb6a22d6956e9d078885de6ee8a0ebc51b4
   Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
   ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
   ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
 
-PODFILE CHECKSUM: aceb779b14150868d662efbe3446867658d30f77
+PODFILE CHECKSUM: 7198ed718156ffb98145980c585f69261301d7c9
 
 COCOAPODS: 1.0.1

@@ -40,6 +40,7 @@
 		FE6C00271D24658F00327C27 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6C00261D24658F00327C27 /* PostTableViewCell.swift */; };
 		FE6C00291D247DF800327C27 /* ParseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6C00281D247DF800327C27 /* ParseHelper.swift */; };
 		FEA6A8F21D289ED20053613F /* FriendSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6A8F11D289ED20053613F /* FriendSearchTableViewCell.swift */; };
+		FECD501E1D330F7700E67EE7 /* PostSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECD501D1D330F7700E67EE7 /* PostSectionHeaderView.swift */; };
 		FEFF9187BF1F0DB3183E8DA9 /* Pods_Makestagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBAE2732C990E4C999ADE412 /* Pods_Makestagram.framework */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +111,7 @@
 		FE6C00261D24658F00327C27 /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		FE6C00281D247DF800327C27 /* ParseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseHelper.swift; sourceTree = "<group>"; };
 		FEA6A8F11D289ED20053613F /* FriendSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendSearchTableViewCell.swift; sourceTree = "<group>"; };
+		FECD501D1D330F7700E67EE7 /* PostSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostSectionHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				FE6C00261D24658F00327C27 /* PostTableViewCell.swift */,
+				FECD501D1D330F7700E67EE7 /* PostSectionHeaderView.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				FE08AB131D21E10600BFFC67 /* PhotoViewController.swift in Sources */,
 				FEA6A8F21D289ED20053613F /* FriendSearchTableViewCell.swift in Sources */,
 				62C8C1E61B06BD6500DC3EA7 /* AppDelegate.swift in Sources */,
+				FECD501E1D330F7700E67EE7 /* PostSectionHeaderView.swift in Sources */,
 				627718971B0A581700AF5C6E /* FilterViewController.swift in Sources */,
 				FE6C00291D247DF800327C27 /* ParseHelper.swift in Sources */,
 				FE6C00271D24658F00327C27 /* PostTableViewCell.swift in Sources */,
@@ -680,7 +684,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = HTC.Makestagram;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HTC.Makestagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Makestagram/Makestagram-Bridging-Header.h";
@@ -702,7 +706,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = HTC.Makestagram;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HTC.Makestagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Makestagram/Makestagram-Bridging-Header.h";

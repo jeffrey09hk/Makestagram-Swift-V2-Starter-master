@@ -70,6 +70,16 @@ class FriendSearchViewController: UIViewController {
         }
         self.users = results as? [PFUser] ?? []
         self.tableView.reloadData()
+        
+        if let error = error {
+            ErrorHandling.defaultErrorHandler(error)
+        }
+        
+        if let results = results{
+            for like in results{
+                like.deleteInBackgroundWithBlock(nil)
+            }
+        }
     }
     
     // MARK: View Lifecycle
@@ -90,12 +100,18 @@ class FriendSearchViewController: UIViewController {
                 
             }
             
+            if let results = results{
+                for like in results{
+                    like.deleteInBackgroundWithBlock(nil)
+                }
+            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

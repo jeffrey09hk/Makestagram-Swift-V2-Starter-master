@@ -66,11 +66,17 @@ class ParseHelper{
         
         query.findObjectsInBackgroundWithBlock{(results:[PFObject]?, error:NSError?) -> Void in
             
+            // default error handler
+            if let error = error {
+                ErrorHandling.defaultErrorHandler(error)
+            }
+            
             if let results = results{
                 for like in results{
                     like.deleteInBackgroundWithBlock(nil)
                 }
             }
+            
         } // end of the call back for findObjectsInBackground
     } // end of unlikePost
     
@@ -123,9 +129,11 @@ class ParseHelper{
         query.whereKey(ParseFollowFromUser, equalTo:user)
         query.whereKey(ParseFollowToUser, equalTo: toUser)
         
-        query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, error: NSError?) -> Void in
+        query.findObjectsInBackgroundWithBlock { (results: [PFObject]?, error: NSError?) -> Void in let results = results ?? []
             
-            let results = results ?? []
+            if let error = error {
+                ErrorHandling.defaultErrorHandler(error)
+            }
             
             for follow in results {
                 follow.deleteInBackgroundWithBlock(nil)

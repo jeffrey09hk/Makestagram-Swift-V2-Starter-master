@@ -9,12 +9,14 @@
 import Foundation
 import Parse
 import Bond
+import ConvenienceKit
 
 //1
 class Post: PFObject, PFSubclassing{
     var image: Observable<UIImage?> = Observable(nil)
     var photoUploadTask: UIBackgroundTaskIdentifier?
     var likes: Observable<[PFUser]?> = Observable(nil)
+    static var imageCache: NSCacheSwift<String, UIImage>!
     
     //2
     @NSManaged var imageFile: PFFile?
@@ -33,10 +35,11 @@ class Post: PFObject, PFSubclassing{
     }
         
     override class func initialize(){
-        var onceToken: dispatch_once_t = 0
+        var onceToken: dispatch_once_t = 0;
         dispatch_once(&onceToken){
         // inform Parse about this subclass
             self.registerSubclass()
+            Post.imageCache = NSCacheSwift<String, UIImage>()
         }
     }// end of parseClassName()
     
@@ -55,18 +58,27 @@ class Post: PFObject, PFSubclassing{
             
             saveInBackgroundWithBlock() {(success: Bool, error: NSError?) in
                 UIApplication.sharedApplication().endBackgroundTask(self.photoUploadTask!)
+                if let error = error {
+                    ErrorHandling.defaultErrorHandler(error)
+                }
             }
         }
     } // end of uploadPost()
 
     
     func downloadImage(){
+        image.value = Post.imageCache[self.imageFile!.name]
         // get the image if the image is not downloaded yet
         if (image.value == nil){
             imageFile?.getDataInBackgroundWithBlock{(data: NSData?, error: NSError?) -> Void in
                 if let data = data{
                     let image = UIImage(data: data, scale:1.0)!
                     self.image.value = image
+                    Post.imageCache[self.imageFile!.name] = image
+                    
+                    if let error = error {
+                        ErrorHandling.defaultErrorHandler(error)
+                    }
                 }
             }
         }
@@ -82,6 +94,10 @@ class Post: PFObject, PFSubclassing{
             
             self.likes.value = validLikes?.map{like in
                 let fromUser = like[ParseHelper.ParseLikeFromUser] as! PFUser
+                
+                if let error = error {
+                    ErrorHandling.defaultErrorHandler(error)
+                }
                 
                 return fromUser
             }

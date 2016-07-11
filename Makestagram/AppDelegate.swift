@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -49,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         acl.publicReadAccess = true
         PFACL.setDefaultACL(acl, withAccessForCurrentUser: true)
         
-        //initialize fb
+        //initialize FB
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
         
         //chk if we have logged in
@@ -62,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             startViewController = storyboard.instantiateViewControllerWithIdentifier("TabBarViewController") as! UITabBarController
         }
         else {
-            //no user logged i, set the LoginViewController as initial
+            //no user logged in, set the LoginViewController as initial
             let loginViewController = PFLogInViewController()
             loginViewController.fields = [.UsernameAndPassword, .LogInButton, .SignUpButton, .PasswordForgotten, .Facebook]
             loginViewController.delegate = parseLoginHelper
@@ -94,7 +95,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        
         FBSDKAppEvents.activateApp()
     }
 
